@@ -14,14 +14,14 @@ class Exfil:
 
         if not isinstance(encoder_names, list):
             raise TypeError("Encoders must be specified as a list of string names.")
-        if not isinstance(channel_name, str) or not channel_name:
+        if not channel_name or not isinstance(channel_name, str):
             raise TypeError("Channel name must be specified as a string.")
 
         channel_class = util.import_module('sneakers.channels', channel_name)
         for encoder in encoder_names:
-            if not encoder:
-                raise TypeError("Empty strings not allowed.")
-            encoder_class = util.import_module('sneakers.encoders', encoder.lower())
+            if not encoder or not isinstance(encoder, str):
+                raise TypeError("Encoders must be specified as a list of string names.")
+            encoder_class = self.__import_module('sneakers.encoders', encoder.lower())
             self.encoders.append({'name': encoder, 'class': encoder_class()})
 
         self.channel = {'name': channel_name, 'class': channel_class()}
@@ -63,6 +63,7 @@ class Exfil:
 
         enc = None
         for encoder in self.encoders:
+            # won't allow multiple encoders with same name
             if encoder['name'] == encoder_name:
                 enc = encoder['class']
                 break
