@@ -3,12 +3,14 @@ from sneakers.modules import Encoder, Parameter
 import scrypt
 import base64
 
+
 # note that the class name *must* be title cased
 class Aes(Encoder):
     info = {
         "name": "AES",
         "author": "davinerd",
-        "description": "Encrypts data using AES and the provided encryption key. The resulting bits are then base64 encoded to allow them to be represented as text",
+        "description": "Encrypts data using AES and the provided encryption key. The resulting bits are then base64  \
+                        encoded to allow them to be represented as text",
         "comments": []
     }
 
@@ -30,4 +32,3 @@ class Aes(Encoder):
         key = self.param('sending', 'key')
         de = base64.b64decode(data)
         return scrypt.decrypt(de, key.encode('ascii'))
-

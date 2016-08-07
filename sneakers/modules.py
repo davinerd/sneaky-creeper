@@ -9,8 +9,9 @@ Parameter Class
 Handles the possible parameters that can be passed to each channel.
 """
 
+
 class Parameter(object):
-    def __init__(self, name, required, description, default = None):
+    def __init__(self, name, required, description, default=None):
         self.name = name
         self.required = required
         self.description = description
@@ -87,7 +88,6 @@ with a class YourChannelName that inherits from this base class.
 
 
 class Channel(Module):
-
     # maximum length of characters of each transmission
     # useful in case of media limitations (i.e. Twitter)
     maxLength = 140
@@ -118,7 +118,8 @@ class Channel(Module):
                 if param not in params[k]:
                     raise ExfilChannel(
                         'Missing required parameter \'{0}\' for channel \'{1}\' ({2}).'.format(param,
-                                                                                            self.__class__.__name__, k))
+                                                                                               self.__class__.__name__,
+                                                                                               k))
                 self.reqParams[k] = params[k]
 
 
@@ -131,7 +132,6 @@ with a class YourEncoderName that inherits from this base class.
 
 
 class Encoder(Module):
-
     def __init__(self):
         Module.__init__(self)
 
@@ -152,5 +152,6 @@ class Encoder(Module):
                 if param not in params[k]:
                     raise ExfilEncoder(
                         'Missing required parameter \'{0}\' for encoder \'{1}\' ({2}).'.format(param,
-                                                                                            self.__class__.__name__, k))
+                                                                                               self.__class__.__name__,
+                                                                                               k))
                 self.reqParams[k] = params[k]

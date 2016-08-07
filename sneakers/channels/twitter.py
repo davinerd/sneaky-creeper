@@ -1,6 +1,7 @@
 from sneakers.modules import Channel, Parameter
 from sneakers.errors import ExfilChannel
-from twython import Twython, TwythonError
+from twython import Twython
+
 
 class Twitter(Channel):
     info = {
@@ -17,7 +18,7 @@ class Twitter(Channel):
             Parameter('token', True, 'OAuth token for Twitter API.'),
             Parameter('tsecret', True, 'OAuth token secret for Twitter API.'),
             Parameter('name', True, 'Screen name of Twitter account to post data to.'),
-	    Parameter('dm', False, 'Specify if communication has to be through DirectMessage')
+            Parameter('dm', False, 'Specify if communication has to be through DirectMessage')
         ],
         'receiving': [
             Parameter('key', True, 'Application key for Twitter API.'),
@@ -25,8 +26,8 @@ class Twitter(Channel):
             Parameter('token', True, 'OAuth token for Twitter API.'),
             Parameter('tsecret', True, 'OAuth token secret for Twitter API.'),
             Parameter('name', True, 'Screen name of Twitter account to post data to.'),
-	    Parameter('dm', False, 'Specify if communication has to be through DirectMessage'),
-	    Parameter('ids', False, 'Message IDs used in DirectMessage')
+            Parameter('dm', False, 'Specify if communication has to be through DirectMessage'),
+            Parameter('ids', False, 'Message IDs used in DirectMessage')
         ]
     }
 
@@ -47,7 +48,7 @@ class Twitter(Channel):
             twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
             if dm_enable:
-                result = twitter.send_direct_message(screen_name=SCEEN_NAME, text=data)
+                result = twitter.send_direct_message(screen_name=SCREEN_NAME, text=data)
             else:
                 result = twitter.update_status(status=data)
         except Exception as err:
@@ -57,7 +58,7 @@ class Twitter(Channel):
 
     def receive(self):
         dm_enable = self.param('receiving', 'dm')
-	ids = self.param('receiving', 'ids')
+        ids = self.param('receiving', 'ids')
         tweets = list()
         user_timeline = list()
 
@@ -93,4 +94,3 @@ class Twitter(Channel):
             raise ExfilChannel("Error retrieving tweets: {0}".format(err))
 
         return tweets
-

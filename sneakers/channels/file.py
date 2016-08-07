@@ -5,20 +5,18 @@ class File(Channel):
     info = {
         "name": "File IO",
         "author": "jerkota",
-        "description": "Writes and reads data to and from files",
+        "description": "Reads or writes data to or from a file with the specified name. Useful for testing and out of \
+                        band transfer.",
         "comments": []
     }
 
-    description = """\
-        Reads or writes data to or from a file with the specified name. Useful for testing and out of band transfer.
-        """
     params = {
         'sending': [
-            Parameter('filename', True, 'Name of the file to write data to.')
+            Parameter('filename', True, 'Name of the file to write data to.'),
             Parameter('mode', False, 'Read mode for the sending file.', 'wa')
         ],
         'receiving': [
-            Parameter('filename', True, 'Name of the file to read data from.')
+            Parameter('filename', True, 'Name of the file to read data from.'),
             Parameter('mode', False, 'Read mode for the receiving file.', 'rb')
         ]
     }

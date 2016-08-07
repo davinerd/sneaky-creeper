@@ -5,8 +5,8 @@ from sneakers.modules import Encoder
 
 import random
 
-class Lendiansteganography(Encoder):
 
+class Lendiansteganography(Encoder):
     info = {
         "name": "Lendian Steganography",
         "author": "davinerd",

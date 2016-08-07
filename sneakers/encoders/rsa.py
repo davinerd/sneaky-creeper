@@ -3,8 +3,8 @@ from sneakers.modules import Encoder, Parameter
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA as cryptoRSA
 
-class Rsa(Encoder):
 
+class Rsa(Encoder):
     info = {
         "name": "RSA",
         "author": "davinerd",
@@ -14,16 +14,18 @@ class Rsa(Encoder):
 
     params = {
         'sending': [
-            Parameter('publicKey', True, 'The filename of the public key, matched to the private key used for decryption.')
+            Parameter('publicKey', True,
+                      'The filename of the public key, matched to the private key used for decryption.')
         ],
         'receiving': [
-            Parameter('privateKey', True, 'The filename of the private key, matched to the public key used for decryption.')
+            Parameter('privateKey', True,
+                      'The filename of the private key, matched to the public key used for decryption.')
         ]
     }
 
     def encode(self, data):
-        publicKeyFile = self.param('sending', 'publicKey')
-        keystring = open(publicKeyFile).read()
+        publicKey_file = self.param('sending', 'publicKey')
+        keystring = open(publicKey_file).read()
         key = cryptoRSA.importKey(keystring)
         cipher = PKCS1_OAEP.new(key)
         ciphertext = cipher.encrypt(data)

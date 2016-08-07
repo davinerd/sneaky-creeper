@@ -36,12 +36,14 @@ def jsonParse(strArg):
     """)
     raise ValueError(exceptionMessage)
 
+
 def import_module(where, what):
     path = '.'.join([where, what])
     class_name = what.title()
     mod = __import__(path, fromlist=[class_name])
     mod_class = getattr(mod, class_name)
     return mod_class
+
 
 def list_encoders(verbose=False):
     # find the path to the encoders folder
